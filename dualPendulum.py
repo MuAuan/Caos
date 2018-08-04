@@ -31,7 +31,7 @@ plt.savefig('plot_thomegavst.png', dpi=60)
 plt.close()
 
 
-def dualPendulum(y, t, b, c):
+def dualPendulum(y, t, L1, L2,g,m1,m2):
     """
     (𝑚1 +𝑚2)𝑙1^2𝜃1̈  = -(+𝑚2𝑙1𝑙2(𝜃2̈ cos(𝜃1 −𝜃2)+𝜃2̇ ^2 sin(𝜃1 −𝜃2)) +(𝑚1 +𝑚2)𝑔𝑙1 sin𝜃1)
     𝑚2𝑙2^2𝜃2̈  = -(+𝑚2𝑙1𝑙2(𝜃1̈ cos(𝜃1 −𝜃2)−𝜃1̇ 2 sin(𝜃1 −𝜃2)) +𝑚2𝑔𝑙2 sin𝜃2)
@@ -58,7 +58,7 @@ def dualPendulum(y, t, b, c):
     return dydt
 
 L1=500
-L2=497.01
+L2=497.1
 g=9.8
 m1=10000
 m2=1750
@@ -67,16 +67,16 @@ m2=1750
 y01=0.99990
 y0 = [y01, 0.0,0, 0.0]
 t = np.linspace(0, 10000, 4001)
-sol = odeint(dualPendulum, y0, t, args=(b, c))
+sol = odeint(dualPendulum, y0, t, args=(L1, L2,g,m1,m2))
 
 x1, p1,x2,p2 = sol.T[0], sol.T[1], sol.T[2], sol.T[3]
 plt.plot(x1, p1, ".", markersize=4)
 plt.pause(3)
-plt.savefig('plot_xp1omega_L1{}L2{}m1{}m2{}y01{}.png'.format(L1,L2,m1,m2,y01), dpi=180)
+plt.savefig('plot_xp1omega_L1{}L2{}m1{}m2{}y01{}n.png'.format(L1,L2,m1,m2,y01), dpi=180)
 plt.close()
 plt.plot(x2, p2, ".", markersize=4)
 plt.pause(3)
-plt.savefig('plot_xp2omega_L1{}L2{}m1{}m2{}y01{}.png'.format(L1,L2,m1,m2,y01),dpi=180)
+plt.savefig('plot_xp2omega_L1{}L2{}m1{}m2{}y01{}n.png'.format(L1,L2,m1,m2,y01),dpi=180)
 plt.close()
 
 plt.plot(t, sol[:, 0], 'b', label='theta1(t)')
@@ -89,7 +89,7 @@ plt.pause(3)
 plt.plot(t, sol[:, 2], 'g', label='theta2(t)')
 plt.legend(loc='best')
 plt.pause(3)
-plt.savefig('plot_theta2vst010000_L1{}L2{}m1{}m2{}y01{}.png'.format(L1,L2,m1,m2,y01), dpi=180)
+plt.savefig('plot_theta2vst010000_L1{}L2{}m1{}m2{}y01{}n.png'.format(L1,L2,m1,m2,y01), dpi=180)
 plt.close()
 
 plt.plot(t, sol[:, 1], 'b', label='omega1(t)')
@@ -102,5 +102,5 @@ plt.pause(3)
 plt.plot(t, sol[:, 3], 'g', label='omega2(t)')
 plt.legend(loc='best')
 plt.pause(3)
-plt.savefig('plot_omega2vst010000_L1{}L2{}m1{}m2{}y01{}.png'.format(L1,L2,m1,m2,y01), dpi=180)
+plt.savefig('plot_omega2vst010000_L1{}L2{}m1{}m2{}y01{}n.png'.format(L1,L2,m1,m2,y01), dpi=180)
 plt.close()
